@@ -91,6 +91,6 @@ func main() {
 	routes = fireball.Decorate(routes, fireball.LogDecorator())
 	app := fireball.NewApp(routes)
 
-	log.Println("Listening on :9090")
-	log.Fatal(http.ListenAndServe(":9090", app))
+	log.Println("Listening on :80")
+	log.Fatal(http.ListenAndServe(":80", app))
 }

@@ -18,10 +18,10 @@
                 {
                     "name": "AWS_REGION",
                     "value": "${region}"
-                }
+                },
                 {
                     "name": "DYNAMO_TABLE",
-                    "value": "${table}"
+                    "value": "${table_name}"
                 }
             ],
             "portMappings": [
