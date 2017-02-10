@@ -1,0 +1,35 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "guestbook",
+            "image": "quintilesims/guestbook-db",
+            "essential": true,
+            "memory": 128,
+            "environment": [
+                {
+                    "name": "AWS_ACCESS_KEY_ID",
+                    "value": "${access_key}"
+                },
+                {
+                    "name": "AWS_SECRET_ACCESS_KEY",
+                    "value": "${secret_key}"
+                },
+                {
+                    "name": "AWS_REGION",
+                    "value": "${region}"
+                },
+                {
+                    "name": "DYNAMO_TABLE",
+                    "value": "${table_name}"
+                }
+            ],
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ]
+        }
+    ]
+}
