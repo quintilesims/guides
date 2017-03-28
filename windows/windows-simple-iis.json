@@ -1,5 +1,4 @@
 {
-  "family": "windows-simple-iis",
   "containerDefinitions": [
     {
       "name": "windows_sample_app",
