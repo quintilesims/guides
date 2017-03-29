@@ -1,12 +1,5 @@
-# Guestbook
+# Iterative Walkthrough
 
-Please see the official Layer0 [Guestbook Walkthrough](https://quintilesims.github.io/layer0/).
+This direectory contains the files for the various stages of the [Iterative Walkthrough](quintilesims.github.io/layer0/guides/walkthrough) guide in the Layer0 docs.
 
-### Developer Notes
-
-The Docker repository for this project is `quintilesims/guestbook`.
-The Docker image can be updated with the following commands:
-```
-docker build -t quintilesims/guestbook .
-docker push quintilesims/guestbook
-```
+The `terraform/` directory contains three subdirectories, one for each section of the guide. Since each section is self-contained within a `layer0.tf` file, this allows us to link to different files of the same name, and prevents users from having to rename files when they download them.
