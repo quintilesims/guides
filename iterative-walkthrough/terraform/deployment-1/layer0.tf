@@ -43,7 +43,7 @@ resource "layer0_deploy" "guestbook" {
 # Template for the "guestbook" deploy
 # See: https://www.terraform.io/docs/providers/template/d/file.html
 data "template_file" "guestbook" {
-  template = "${file("Dockerrun.aws.json")}"
+  template = "${file("Guestbook.Dockerrun.aws.json")}"
 }
 
 # Show the load balancer's url as output
