@@ -9,15 +9,15 @@ provider "layer0" {
   skip_ssl_verify = true
 }
 
-# Create an environment named "demo"
-resource "layer0_environment" "demo" {
-  name = "demo"
+# Create an environment named "demo-env"
+resource "layer0_environment" "demo-env" {
+  name = "demo-env"
 }
 
-# Create a load balancer named "guestbook" with port 80 exposed
-resource "layer0_load_balancer" "guestbook" {
-  name        = "guestbook"
-  environment = "${layer0_environment.demo.id}"
+# Create a load balancer named "guestbook-lb" with port 80 exposed
+resource "layer0_load_balancer" "guestbook-lb" {
+  name        = "guestbook-lb"
+  environment = "${layer0_environment.demo-env.id}"
 
   port {
     host_port      = 80
@@ -26,27 +26,27 @@ resource "layer0_load_balancer" "guestbook" {
   }
 }
 
-# Create a service named "guestbook"
-resource "layer0_service" "guestbook" {
-  name          = "guestbook"
-  environment   = "${layer0_environment.demo.id}"
-  deploy        = "${layer0_deploy.guestbook.id}"
-  load_balancer = "${layer0_load_balancer.guestbook.id}"
+# Create a service named "guestbook-svc"
+resource "layer0_service" "guestbook-svc" {
+  name          = "guestbook-svc"
+  environment   = "${layer0_environment.demo-env.id}"
+  deploy        = "${layer0_deploy.guestbook-dpl.id}"
+  load_balancer = "${layer0_load_balancer.guestbook-lb.id}"
 }
 
-# Create a deploy named "guestbook"
-resource "layer0_deploy" "guestbook" {
-  name    = "guestbook"
-  content = "${data.template_file.guestbook.rendered}"
+# Create a deploy named "guestbook-dpl"
+resource "layer0_deploy" "guestbook-dpl" {
+  name    = "guestbook-dpl"
+  content = "${data.template_file.guestbook-file.rendered}"
 }
 
 # Template for the "guestbook" deploy
 # See: https://www.terraform.io/docs/providers/template/d/file.html
-data "template_file" "guestbook" {
+data "template_file" "guestbook-file" {
   template = "${file("Guestbook.Dockerrun.aws.json")}"
 }
 
 # Show the load balancer's url as output
 output "guestbook_url" {
-  value = "${layer0_load_balancer.guestbook.url}"
+  value = "${layer0_load_balancer.guestbook-lb.url}"
 }

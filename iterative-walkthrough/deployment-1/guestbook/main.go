@@ -9,16 +9,19 @@ import (
 var entries []string
 
 func listEntries(c *fireball.Context) (fireball.Response, error) {
+    log.Println("list")
 	return c.HTML(200, "index.html", entries)
 }
 
 func addEntry(c *fireball.Context) (fireball.Response, error) {
+    log.Println("add")
 	entry := c.Request.FormValue("entry")
 	entries = append(entries, entry)
 	return fireball.Redirect(301, "/"), nil
 }
 
 func clearEntries(c *fireball.Context) (fireball.Response, error) {
+    log.Println("clear")
 	entries = []string{}
 	return fireball.Redirect(301, "/"), nil
 }
