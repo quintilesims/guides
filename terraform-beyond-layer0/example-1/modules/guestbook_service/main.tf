@@ -18,6 +18,8 @@ resource "layer0_service" "guestbook" {
   environment   = "${var.layer0_environment_id}"
   deploy        = "${layer0_deploy.guestbook.id}"
   load_balancer = "${layer0_load_balancer.guestbook.id}"
+
+  #scale = 3
 }
 
 resource "layer0_deploy" "guestbook" {
@@ -42,6 +44,8 @@ provider "aws" {
   region     = "${var.region}"
 }
 
+# note we are prefixing with the environment name also to ensure there won't be conflicts
+# if multiple instance of this application were deployed
 resource "aws_dynamodb_table" "guestbook" {
   name           = "${var.layer0_environment_name}_${var.name}_${var.table_name}"
   read_capacity  = 20
