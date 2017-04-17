@@ -2,7 +2,9 @@
 # modules/guestbook_service/variables.tf
 #
 
-variable "name" {}
+variable "name" {
+  default = "guestbook"
+}
 
 variable "table_name" {
   default = "guestbook"
