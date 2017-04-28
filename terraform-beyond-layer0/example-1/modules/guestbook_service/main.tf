@@ -3,7 +3,7 @@
 #
 
 resource "layer0_load_balancer" "guestbook" {
-  name        = "${var.name}_guestbook_lb"
+  name        = "${var.load_balancer_name}"
   environment = "${var.layer0_environment_id}"
 
   port {
@@ -14,7 +14,7 @@ resource "layer0_load_balancer" "guestbook" {
 }
 
 resource "layer0_service" "guestbook" {
-  name          = "${var.name}_guestbook_svc"
+  name          = "${var.service_name}"
   environment   = "${var.layer0_environment_id}"
   deploy        = "${layer0_deploy.guestbook.id}"
   load_balancer = "${layer0_load_balancer.guestbook.id}"
@@ -23,7 +23,7 @@ resource "layer0_service" "guestbook" {
 }
 
 resource "layer0_deploy" "guestbook" {
-  name    = "${var.name}_guestbook_dpl"
+  name    = "${var.deploy_name}"
   content = "${data.template_file.guestbook.rendered}"
 }
 
@@ -47,7 +47,7 @@ provider "aws" {
 # note we are prefixing with the environment name also to ensure there won't be conflicts
 # if multiple instance of this application were deployed
 resource "aws_dynamodb_table" "guestbook" {
-  name           = "${var.layer0_environment_name}_${var.name}_${var.table_name}"
+  name           = "${var.table_name}"
   read_capacity  = 20
   write_capacity = 20
   hash_key       = "id"
