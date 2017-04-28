@@ -8,11 +8,11 @@ provider "layer0" {
 }
 
 resource "layer0_environment" "demo" {
-  name = "${var.environment}_${var.name}_demo"
+  name = "${var.environment}_demo"
 }
 
 resource "layer0_load_balancer" "guestbook" {
-  name        = "${var.environment}_${var.name}_guestbook_lb"
+  name        = "${var.load_balancer_name}"
   environment = "${layer0_environment.demo.id}"
 
   port {
@@ -23,7 +23,7 @@ resource "layer0_load_balancer" "guestbook" {
 }
 
 resource "layer0_service" "guestbook" {
-  name          = "${var.environment}_${var.name}_guestbook_svc"
+  name          = "${var.service_name}"
   environment   = "${layer0_environment.demo.id}"
   deploy        = "${layer0_deploy.guestbook.id}"
   load_balancer = "${layer0_load_balancer.guestbook.id}"
@@ -31,7 +31,7 @@ resource "layer0_service" "guestbook" {
 }
 
 resource "layer0_deploy" "guestbook" {
-  name    = "${var.environment}_${var.name}_guestbook_dpl"
+  name    = "${layer0_environment.demo.id}_${var.deploy_name}"
   content = "${data.template_file.guestbook.rendered}"
 }
 
@@ -53,7 +53,7 @@ provider "aws" {
 }
 
 resource "aws_dynamodb_table" "guestbook" {
-  name           = "${var.environment}_${var.name}_${var.table_name}"
+  name           = "${var.environment}_${var.table_name}"
   read_capacity  = 20
   write_capacity = 20
   hash_key       = "id"
