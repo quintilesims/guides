@@ -16,8 +16,6 @@ variable "region" {
 
 variable "layer0_environment_id" {}
 
-variable "layer0_environment_name" {}
-
 variable "load_balancer_name" {
   description = "Name of Layer0 load balancer to create"
   default = "guestbook-lb"

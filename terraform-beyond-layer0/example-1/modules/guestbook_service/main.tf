@@ -40,8 +40,6 @@ provider "aws" {
   region     = "${var.region}"
 }
 
-# note we are prefixing with the environment name also to ensure there won't be conflicts
-# if multiple instance of this application were deployed
 resource "aws_dynamodb_table" "guestbook" {
   name           = "${var.table_name}"
   read_capacity  = 20
