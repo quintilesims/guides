@@ -14,14 +14,14 @@ provider "aws" {
 resource "layer0_environment" "demo" {
   count = "${length(var.environments)}"
 
-  name = "${lookup(var.environments, count.index)}_demo"
+  name = "${var.environments[count.index]}_demo"
 }
 
 # create one loadbalancer for each map value defined in variable 'environments'
 resource "layer0_load_balancer" "guestbook" {
   count = "${length(var.environments)}"
 
-  name        = "${lookup(var.environments, count.index)}_guestbook_lb"
+  name        = "guestbook_lb"
   environment = "${element(layer0_environment.demo.*.id, count.index)}"
 
   port {
@@ -31,8 +31,8 @@ resource "layer0_load_balancer" "guestbook" {
   }
 }
 
-# create a datasource for each map value defined in variable 'environments' which
-# references a environment specific dynamodb table.
+# create a template for each environment. Each template will reference 
+# an environment-specific dynamodb table.
 data "template_file" "guestbook" {
   count = "${length(var.environments)}"
 
@@ -63,19 +63,19 @@ resource "layer0_deploy" "guestbook" {
 resource "layer0_service" "guestbook" {
   count = "${length(var.environments)}"
 
-  name          = "${element(layer0_environment.demo.*.name, count.index)}_guestbook_svc"
+  name          = "guestbook_svc"
   environment   = "${element(layer0_environment.demo.*.id, count.index)}"
   deploy        = "${element(layer0_deploy.guestbook.*.id, count.index)}"
   load_balancer = "${element(layer0_load_balancer.guestbook.*.id, count.index)}"
 
-  # scale       = "${lookup(var.service_scale, lookup(var.environments, count.index), "1")}"
+  # scale       = "${lookup(var.service_scale, var.environments[count.index], "1")}"
 }
 
 # create a dynamodb table for each map value defined in variable 'environments'
 resource "aws_dynamodb_table" "guestbook" {
   count = "${length(var.environments)}"
 
-  name           = "${lookup(var.environments, count.index)}_${var.table_name}"
+  name           = "${var.environments[count.index]}_${var.table_name}"
   read_capacity  = 20
   write_capacity = 20
   hash_key       = "id"
