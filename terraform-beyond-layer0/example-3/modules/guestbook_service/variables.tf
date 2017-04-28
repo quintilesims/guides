@@ -1,7 +1,3 @@
-#
-# modules/guestbook_service/variables.tf
-#
-
 variable "name" {}
 
 variable "environment" {}

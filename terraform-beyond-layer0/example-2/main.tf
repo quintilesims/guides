@@ -1,7 +1,3 @@
-#
-# ./example2/main.tf
-#
-
 provider "layer0" {
   endpoint        = "${var.endpoint}"
   token           = "${var.token}"

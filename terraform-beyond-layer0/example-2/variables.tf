@@ -1,6 +1,3 @@
-#
-# ./example2/variables.tf
-#
 variable "endpoint" {}
 
 variable "token" {}

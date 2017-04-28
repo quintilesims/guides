@@ -1,7 +1,3 @@
-#
-# example-3/env-dev/variables.tf
-#
-
 variable "endpoint" {}
 
 variable "token" {}

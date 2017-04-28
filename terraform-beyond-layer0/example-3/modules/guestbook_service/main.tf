@@ -1,6 +1,3 @@
-#
-# modules/guestbook_service/main.tf
-#
 provider "layer0" {
   endpoint        = "${var.endpoint}"
   token           = "${var.token}"

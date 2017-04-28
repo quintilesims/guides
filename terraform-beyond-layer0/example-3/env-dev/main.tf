@@ -1,7 +1,3 @@
-#
-# example-3/env-dev/main.tf
-#
-
 module "guestbook" {
   source = "./../modules/guestbook_service"
 

@@ -1,7 +1,3 @@
-#
-# modules/guestbook_service/main.tf
-#
-
 resource "layer0_load_balancer" "guestbook" {
   name        = "${var.load_balancer_name}"
   environment = "${var.layer0_environment_id}"
