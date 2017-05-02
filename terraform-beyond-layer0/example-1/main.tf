@@ -15,7 +15,6 @@ module "guestbook" {
   access_key              = "${var.access_key}"
   secret_key              = "${var.secret_key}"
   layer0_environment_id   = "${layer0_environment.demo.id}"
-  layer0_environment_name = "${layer0_environment.demo.name}_guestbook"
 }
 
 # Sample remote backend configuration - to use uncomment and update bucket property 

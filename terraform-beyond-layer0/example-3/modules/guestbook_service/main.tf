@@ -1,10 +1,16 @@
-#
-# modules/guestbook_service/main.tf
-#
+provider "layer0" {
+  endpoint        = "${var.endpoint}"
+  token           = "${var.token}"
+  skip_ssl_verify = true
+}
+
+resource "layer0_environment" "demo" {
+  name = "${var.environment}_demo"
+}
 
 resource "layer0_load_balancer" "guestbook" {
-  name        = "${var.name}_guestbook_lb"
-  environment = "${var.layer0_environment_id}"
+  name        = "${var.load_balancer_name}"
+  environment = "${layer0_environment.demo.id}"
 
   port {
     host_port      = 80
@@ -14,14 +20,15 @@ resource "layer0_load_balancer" "guestbook" {
 }
 
 resource "layer0_service" "guestbook" {
-  name          = "${var.name}_guestbook_svc"
-  environment   = "${var.layer0_environment_id}"
+  name          = "${var.service_name}"
+  environment   = "${layer0_environment.demo.id}"
   deploy        = "${layer0_deploy.guestbook.id}"
   load_balancer = "${layer0_load_balancer.guestbook.id}"
+  scale         = "${var.service_scale}"
 }
 
 resource "layer0_deploy" "guestbook" {
-  name    = "${var.name}_guestbook_dpl"
+  name    = "${layer0_environment.demo.id}_${var.deploy_name}"
   content = "${data.template_file.guestbook.rendered}"
 }
 
@@ -43,7 +50,7 @@ provider "aws" {
 }
 
 resource "aws_dynamodb_table" "guestbook" {
-  name           = "${var.layer0_environment_name}_${var.name}_${var.table_name}"
+  name           = "${var.environment}_${var.table_name}"
   read_capacity  = 20
   write_capacity = 20
   hash_key       = "id"
