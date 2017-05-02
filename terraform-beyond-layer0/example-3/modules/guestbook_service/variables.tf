@@ -17,7 +17,7 @@ variable "token" {}
 variable "region" {}
 
 variable "service_scale" {
-  type = "map"
+  default = "1"
 }
 
 variable "load_balancer_name" {

@@ -24,7 +24,7 @@ resource "layer0_service" "guestbook" {
   environment   = "${layer0_environment.demo.id}"
   deploy        = "${layer0_deploy.guestbook.id}"
   load_balancer = "${layer0_load_balancer.guestbook.id}"
-  scale         = "${lookup(var.service_scale, var.environment, "1")}"
+  scale         = "${var.service_scale}"
 }
 
 resource "layer0_deploy" "guestbook" {

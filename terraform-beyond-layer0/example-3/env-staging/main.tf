@@ -8,7 +8,7 @@ module "guestbook" {
   region        = "${var.region}"
   endpoint      = "${var.endpoint}"
   token         = "${var.token}"
-  service_scale = "${var.service_scale}"
+  service_scale = "3"
 }
 
 # Sample remote backend configuration - to use uncomment and update bucket property 
