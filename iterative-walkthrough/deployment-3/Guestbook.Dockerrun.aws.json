@@ -14,8 +14,8 @@
             ],
             "environment": [
                 {
-                    "name": "REDIS_ADDRESS_AND_PORT",
-                    "value": "10.100.98.67:6379"
+                    "name": "SERVICE_TO_QUERY",
+                    "value": "redis"
                 }
             ]
         },
