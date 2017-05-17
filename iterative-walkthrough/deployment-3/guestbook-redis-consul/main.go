@@ -36,7 +36,7 @@ var (
 
 func getServiceAddress(serviceName string) (string, error) {
 	c := http.Client{}
-	resp, err := c.Get(fmt.Sprintf("http://localhost:8500/v1/catalog/service/%s", serviceName))
+	resp, err := c.Get(fmt.Sprintf("consul-agent:8500/v1/catalog/service/%s", serviceName))
 	if err != nil {
 		return "", err
 	}
