@@ -14,10 +14,11 @@ resource "layer0_environment" "demo-env" {
 	name = "demo-env"
 }
 
-# Create a private load balancer name "consul-lb" with ports 8301 and 8500 exposed
+# Create a private load balancer named "consul-lb" with ports 8301 and 8500 exposed
 resource "layer0_load_balancer" "consul-lb" {
     name = "consul-lb"
     environment = "${layer0_environment.demo-env.id}"
+    private = true
 
     port {
         host_port = 8301
