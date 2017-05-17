@@ -36,7 +36,7 @@ var (
 
 func getServiceAddress(serviceName string) (string, error) {
 	c := http.Client{}
-	resp, err := c.Get("http://localhost:8500/v1/catalog/service/" + serviceName)
+	resp, err := c.Get(fmt.Sprintf("http://localhost:8500/v1/catalog/service/%s", serviceName))
 	if err != nil {
 		return "", err
 	}
@@ -70,12 +70,12 @@ func getServiceAddress(serviceName string) (string, error) {
 func listEntries(c *fireball.Context) (fireball.Response, error) {
 	redisAddress, err := getServiceAddress(serviceName)
 	if err != nil {
-		log.Fatal(err)
+		return fireball.NewResponse(200, []byte(err.Error()), nil), nil
 	}
 
 	conn, err := redis.Dial(redisProtocol, redisAddress)
 	if err != nil {
-		log.Fatal(err)
+		return fireball.NewResponse(200, []byte(err.Error()), nil), nil
 	}
 	defer conn.Close()
 
@@ -86,12 +86,13 @@ func listEntries(c *fireball.Context) (fireball.Response, error) {
 func addEntry(c *fireball.Context) (fireball.Response, error) {
 	redisAddress, err := getServiceAddress(serviceName)
 	if err != nil {
-		log.Fatal(err)
+		return fireball.NewResponse(200, []byte(err.Error()), nil), nil
+
 	}
 
 	conn, err := redis.Dial(redisProtocol, redisAddress)
 	if err != nil {
-		log.Fatal(err)
+		return fireball.NewResponse(200, []byte(err.Error()), nil), nil
 	}
 	defer conn.Close()
 
@@ -103,12 +104,12 @@ func addEntry(c *fireball.Context) (fireball.Response, error) {
 func clearEntries(c *fireball.Context) (fireball.Response, error) {
 	redisAddress, err := getServiceAddress(serviceName)
 	if err != nil {
-		log.Fatal(err)
+		return fireball.NewResponse(200, []byte(err.Error()), nil), nil
 	}
 
 	conn, err := redis.Dial(redisProtocol, redisAddress)
 	if err != nil {
-		log.Fatal(err)
+		return fireball.NewResponse(200, []byte(err.Error()), nil), nil
 	}
 	defer conn.Close()
 
