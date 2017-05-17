@@ -17,7 +17,10 @@
                     "name": "SERVICE_TO_QUERY",
                     "value": "redis"
                 }
-            ]
+            ],
+			"links": [
+				"consul-agent"
+			]
         },
         {
             "name": "registrator",
