@@ -67,6 +67,7 @@ data "template_file" "consul" {
 
 # Create a load balancer named "guestbook-lb" with port 80 exposed
 resource "layer0_load_balancer" "guestbook-lb" {
+	depends_on = ["layer0_service.consul-svc"]
 	name        = "guestbook-lb"
 	environment = "${layer0_environment.demo-env.id}"
 
@@ -107,6 +108,7 @@ data "template_file" "guestbook" {
 
 # Create a load balancer named "redis-lb" with port 6379 exposed
 resource "layer0_load_balancer" "redis-lb" {
+	depends_on = ["layer0_service.consul-svc"]
     name = "redis-lb"
     environment = "${layer0_environment.demo-env.id}"
 	private = "true"
