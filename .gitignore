@@ -1,3 +1,5 @@
 *.exe
 *~
 *tfstate*
+*.tfvars
+*.swp
