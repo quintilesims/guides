@@ -1,0 +1,23 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "guestbook",
+            "image": "quintilesims/guestbook-redis",
+            "essential": true,
+            "memory": 128,
+            "environment": [
+                {
+                    "name": "REDIS_ADDRESS_AND_PORT",
+                    "value": "${redis_address}"
+                }
+            ],
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+               }
+            ]
+        }
+    ]
+}
