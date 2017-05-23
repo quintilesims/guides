@@ -37,6 +37,11 @@ variable "deploy_name" {
   default     = "guestbook"
 }
 
+variable "deploy_id" {
+  description = "(optional) id of a deploy to use"
+  default     = ""
+}
+
 variable "load_balancer_name" {
   description = "name to use for the load balancer"
   default     = "guestbook"

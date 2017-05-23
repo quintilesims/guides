@@ -13,7 +13,7 @@ resource "layer0_service" "guestbook" {
   name          = "${var.service_name}"
   environment   = "${var.environment_id}"
   scale         = "${var.scale}"
-  deploy        = "${layer0_deploy.guestbook.id}"
+  deploy        = "${ var.deploy_id == "" ? layer0_deploy.guestbook.id : var.deploy_id }"
   load_balancer = "${layer0_load_balancer.guestbook.id}"
   wait          = true
 }

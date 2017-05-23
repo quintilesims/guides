@@ -21,20 +21,16 @@ func (c *ConsulRedisBackend) getRedisAddress() (string, error) {
 		return "", fmt.Errorf("Failed to connect to consul: %v", err)
 	}
 
-	services, err := client.Agent().Services()
+	services, _, err := client.Catalog().Service(c.redisServiceName, "", nil)
 	if err != nil {
 		return "", fmt.Errorf("Failed to list consul services: %v", err)
 	}
 
-	for _, service := range services {
-		// todo: unsure if service.ID holds the service name or if it is another field
-		// https://godoc.org/github.com/hashicorp/consul/api#AgentService
-		if service.ID == c.redisServiceName {
-			return fmt.Sprintf("%s:%s", service.Address, service.Port), nil
-		}
+	if len(services) == 0 {
+		return "", fmt.Errorf("Service '%s' was not registered in consul", c.redisServiceName)
 	}
 
-	return "", fmt.Errorf("Service '%s' was not registered in consul", c.redisServiceName)
+	return fmt.Sprintf("%s:%s", services[0].ServiceAddress, services[0].ServicePort), nil
 }
 
 func (c *ConsulRedisBackend) getRedisBackend() (*RedisBackend, error) {
