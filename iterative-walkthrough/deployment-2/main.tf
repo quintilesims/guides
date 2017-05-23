@@ -47,10 +47,9 @@ data "template_file" "redis" {
 
 # configure the guestbook service to use the redis backend 
 module "guestbook" {
-#  source         = "github.com/quintilesims/layer0-examples//guestbook/module"
-source = "/home/ec2-user/go/src/github.com/quintilesims/layer0-examples/guestbook/module"
+  source         = "github.com/quintilesims/layer0-examples//guestbook/module"
   environment_id = "${layer0_environment.demo.id}"
-  scale = 2
+  scale          = 2
   backend_type   = "redis"
   backend_config = "${layer0_load_balancer.redis.url}:${var.redis_port}"
 }
