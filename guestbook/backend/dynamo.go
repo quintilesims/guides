@@ -1,10 +1,10 @@
 package backend
 
 import (
+	"github.com/aws/aws-sdk-go/aws/defaults"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/guregu/dynamo"
 	"time"
-	"github.com/aws/aws-sdk-go/aws/defaults"
 )
 
 type Entry struct {

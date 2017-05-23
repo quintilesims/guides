@@ -53,6 +53,14 @@ func main() {
 
 			log.Println("Using redis backend")
 			b = backend.NewRedisBackend(address)
+		case "consul-redis":
+			address := c.String("backend-config")
+			if address == "" {
+				return fmt.Errorf("Consul-Redis backend requires 'backend-config' (EnvVar: %s) to be set!", ENVVAR_BACKEND_CONFIG)
+			}
+
+			log.Println("Using consul-redis backend")
+			b = backend.NewConsulRedisBackend(address)
 		case "dynamo":
 			table := c.String("backend-config")
 			if table == "" {

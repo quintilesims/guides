@@ -14,8 +14,8 @@ func (m *MemoryBackend) GetEntries() ([]string, error) {
 	return m.entries, nil
 }
 
-func (m *MemoryBackend) AddEntry(entry string) error {
-	m.entries = append(m.entries, entry)
+func (m *MemoryBackend) AddEntry(message string) error {
+	m.entries = append(m.entries, message)
 	return nil
 }
 
