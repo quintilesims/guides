@@ -8,8 +8,12 @@
             "memory": 128,
             "environment": [
                 {
-                    "name": "REDIS_ADDRESS_AND_PORT",
-                    "value": "${redis_address}"
+                    "name": "GUESTBOOK_BACKEND_TYPE",
+                    "value": "redis"
+                },
+                {
+                    "name": "GUESTBOOK_BACKEND_CONFIG",
+                    "value": "<redis host and port here>"
                 }
             ],
             "portMappings": [

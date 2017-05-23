@@ -8,7 +8,7 @@
             "memory": 128,
             "portMappings": [
                 {
-                    "hostPort": 6379,
+                    "hostPort": ${redis_port},
                     "containerPort": 6379
                 }
             ]

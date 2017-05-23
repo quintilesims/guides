@@ -2,6 +2,11 @@ variable "environment_id" {
   description = "id of the layer0 environment to create the service"
 }
 
+variable "scale" {
+  description = "The scale of the guestbook service"
+  default     = 1
+}
+
 variable "backend_type" {
   description = "type of backend data store for the service [memory, redis, dynamo]"
   default     = "memory"
