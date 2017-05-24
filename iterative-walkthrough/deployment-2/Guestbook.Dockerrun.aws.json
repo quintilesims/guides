@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "guestbook",
-            "image": "quintilesims/guestbook-redis",
+            "image": "quintilesims/guestbook",
             "essential": true,
             "memory": 128,
             "environment": [
