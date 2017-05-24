@@ -16,7 +16,9 @@ func NewConsulRedisBackend(redisServiceName string) *ConsulRedisBackend {
 }
 
 func (c *ConsulRedisBackend) getRedisAddress() (string, error) {
-	client, err := api.NewClient(api.DefaultConfig())
+	config := api.DefaultConfig()
+	config.Address = "consul-agent:8500"
+	client, err := api.NewClient(config)
 	if err != nil {
 		return "", fmt.Errorf("Failed to connect to consul: %v", err)
 	}
