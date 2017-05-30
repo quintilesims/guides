@@ -16,7 +16,7 @@ module "redis" {
 
 # configure the guestbook service to use the redis backend 
 module "guestbook" {
-  source         = "github.com/quintilesims/layer0-examples//guestbook/module"
+  source         = "github.com/quintilesims/guides//guestbook/module"
   environment_id = "${layer0_environment.demo.id}"
   scale          = 2
   backend_type   = "redis"
