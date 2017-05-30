@@ -1,0 +1,37 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "guestbook",
+            "image": "quintilesims/guestbook",
+            "essential": true,
+            "memory": 128,
+            "environment": [
+                {
+                    "name": "GUESTBOOK_BACKEND_TYPE",
+                    "value": "consul-redis"
+                },
+                {
+                    "name": "GUESTBOOK_BACKEND_CONFIG",
+                    "value": "${redis_consul_service_name}"
+                },
+                {
+                    "name": "SERVICE_NAME",
+                    "value": "${guestbook_consul_service_name}"
+                }
+            ],
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ]
+        },
+        ${consul_agent_container},
+        ${consul_registrator_container}
+    ],
+    "volumes": [
+        ${docker_volume}
+    ]
+}
+

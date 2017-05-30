@@ -9,7 +9,7 @@ resource "layer0_environment" "demo" {
 }
 
 module "guestbook" {
-  source         = "github.com/quintilesims/layer0-examples//guestbook/module"
+  source         = "github.com/quintilesims/guides//guestbook/module"
   environment_id = "${layer0_environment.demo.id}"
   backend_type   = "memory"
 }
