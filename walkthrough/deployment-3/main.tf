@@ -8,24 +8,9 @@ resource "layer0_environment" "demo" {
   name = "demo"
 }
 
-resource "layer0_load_balancer" "redis" {
-  name        = "redis"
-  environment = "${layer0_environment.demo.id}"
-  private     = true
-
-  port {
-    host_port      = "${var.redis_port}"
-    container_port = "${var.redis_port}"
-    protocol       = "tcp"
-  }
-}
-
-resource "layer0_service" "redis" {
-  name          = "redis"
-  environment   = "${layer0_environment.demo.id}"
-  deploy        = "${layer0_deploy.redis.id}"
-  load_balancer = "${layer0_load_balancer.redis.id}"
-  wait          = true
+module "consul" {
+  source         = "github.com/quintilesims/consul//terraform"
+  environment_id = "${layer0_environment.demo.id}"
 }
 
 resource "layer0_deploy" "redis" {
@@ -36,7 +21,7 @@ resource "layer0_deploy" "redis" {
 data "template_file" "redis" {
   template = "${file("Redis.Dockerrun.aws.json")}"
 
-  vars {
+  vars = {
     redis_port                   = "${var.redis_port}"
     redis_consul_service_name    = "${var.redis_consul_service_name}"
     consul_agent_container       = "${module.consul.agent_container}"
@@ -45,9 +30,10 @@ data "template_file" "redis" {
   }
 }
 
-module "consul" {
-  source         = "github.com/quintilesims/consul/terraform"
+module "redis" {
+  source         = "github.com/quintilesims/redis//terraform"
   environment_id = "${layer0_environment.demo.id}"
+  deploy_id      = "${layer0_deploy.redis.id}"
 }
 
 resource "layer0_deploy" "guestbook" {
@@ -68,8 +54,7 @@ data "template_file" "guestbook" {
 }
 
 module "guestbook" {
-  # source         = "github.com/quintilesims/layer0-examples//guestbook/module"
-  source         = "/home/ec2-user/go/src/github.com/quintilesims/layer0-examples/guestbook/module"
+  source         = "github.com/quintilesims/guides//guestbook/module"
   environment_id = "${layer0_environment.demo.id}"
   deploy_id      = "${layer0_deploy.guestbook.id}"
 }
