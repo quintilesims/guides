@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/quintilesims/layer0-examples/guestbook/backend"
-	"github.com/quintilesims/layer0-examples/guestbook/controllers"
+	"github.com/quintilesims/guides/guestbook/backend"
+	"github.com/quintilesims/guides/guestbook/controllers"
 	"github.com/urfave/cli"
 	"github.com/zpatrick/fireball"
 	"log"
