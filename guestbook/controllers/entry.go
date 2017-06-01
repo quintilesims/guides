@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/quintilesims/layer0-examples/guestbook/backend"
+	"github.com/quintilesims/guides/guestbook/backend"
 	"github.com/zpatrick/fireball"
 )
 
