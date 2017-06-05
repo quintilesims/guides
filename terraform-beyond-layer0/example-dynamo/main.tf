@@ -28,7 +28,7 @@ resource "aws_dynamodb_table" "guestbook" {
 
 # configure the guestbook service to use the dynamo table 
 module "guestbook" {
-  source         = "github.com/quintilesims/layer0-examples//guestbook/module"
+  source         = "github.com/quintilesims/guides//guestbook/module"
   environment_id = "${layer0_environment.demo.id}"
   backend_type   = "dynamo"
   backend_config = "${aws_dynamodb_table.guestbook.id}"

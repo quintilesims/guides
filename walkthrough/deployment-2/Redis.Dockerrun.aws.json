@@ -1,0 +1,17 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "redis",
+            "image": "redis:3.2-alpine",
+            "essential": true,
+            "memory": 128,
+            "portMappings": [
+                {
+                    "hostPort": 6379,
+                    "containerPort": 6379
+                }
+            ]
+        }
+    ]
+}

@@ -32,7 +32,7 @@ func (c *ConsulRedisBackend) getRedisAddress() (string, error) {
 		return "", fmt.Errorf("Service '%s' was not registered in consul", c.redisServiceName)
 	}
 
-	return fmt.Sprintf("%s:%s", services[0].ServiceAddress, services[0].ServicePort), nil
+	return fmt.Sprintf("%s:%d", services[0].ServiceAddress, services[0].ServicePort), nil
 }
 
 func (c *ConsulRedisBackend) getRedisBackend() (*RedisBackend, error) {
